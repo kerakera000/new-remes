@@ -1,0 +1,128 @@
+@import '../../mixin/mixin';
+
+.accordion {
+    margin: 180px 0 220px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0 66px;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 24px;
+    }
+    @media screen and (max-width: 425px) {
+        margin: 80px 0 50px;
+    }
+    .LineupTitle_jp {
+        color: #2E2E2E;
+        font-family: "Noto Sans JP";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+        letter-spacing: 4px;
+        transform: translateY(20px);
+    }
+
+    .LineupTitle_en {
+        font-family: "Noto Sans JP";
+        font-size: 120px;
+        font-style: normal;
+        font-weight: 700;
+        letter-spacing: -2.4px;
+        background: linear-gradient(90deg, #232323 28.97%, #8A1919 96.01%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 50px;
+        @media screen and (max-width: 425px) {
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .faq_title {
+        margin-bottom: 40px;
+    }
+
+    .toggle {
+        display: none;
+    }
+
+    .faq {
+        position: relative;
+        margin-bottom: 1rem;
+        width: 100%;
+        max-width: 1100px;
+    }
+
+    .question,
+    .anser {
+        transform: translateZ(0);
+        transition: all 0.3s;
+    }
+
+    .question {
+        border: solid 1px #999;
+        padding: 1rem 2.2rem 1rem 20px;
+        display: block;
+        color: #2F2F2F;
+        border-radius: 30px;
+        border: 1px solid #E8E8E8;
+        background: #FFF;
+        box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.03);
+        font-family: "Noto Sans JP", sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .question span,
+    .anser span {
+        padding-right: 16px;
+        color: #C33131;
+        font-family: "Noto Sans JP", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .question:after,
+    .question:before {
+        content: "";
+        position: absolute;
+        right: 35px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 2px;
+        height: 0.75rem;
+        background-color: #C33131;
+        transition: all 0.3s;
+    }
+
+    .question:after {
+        transform: rotate(90deg);
+    }
+
+    .anser {
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .anser div {
+        margin: 0;
+        padding: 1rem 2.2rem 1rem 22px;
+        line-height: 1.8;
+    }
+
+    .toggle:checked+.question+.anser {
+        max-height: 500px;
+        transition: all 1.5s;
+    }
+
+    .toggle:checked+.question:before {
+        transform: rotate(90deg) !important;
+    }
+}

@@ -1,0 +1,47 @@
+.alert-container {
+    position: fixed;
+    top: 13%;
+    right: 5%;
+    transform: translateX(-0%,-50%);
+    z-index: 1000;
+    opacity: 1;
+    /* 初期表示 */
+    transition: opacity 0.5s ease-in-out;
+    /* 0.5秒でフェード */
+
+    &.hide {
+        opacity: 0;
+        /* フェードアウト */
+    }
+}
+
+.alert-box {
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.alert-close-button {
+    background: transparent;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.alert-success {
+    background-color: #4ca8af;
+}
+
+.alert-error {
+    background-color: #F44336;
+}
+
+.alert-info {
+    background-color: #bed4e7;
+}

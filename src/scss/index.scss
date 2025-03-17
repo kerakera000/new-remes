@@ -1,0 +1,12 @@
+@use './common/reset';
+@use './common/common';
+@use './common/alert';
+
+@use './layout/Header';
+@use './layout/Footer';
+
+@use './pages/Home';
+@use './pages/Contact';
+@use './pages/Mypage';
+
+@use './component/Modals/ModalComp';

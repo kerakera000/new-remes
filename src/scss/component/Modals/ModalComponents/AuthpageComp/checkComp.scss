@@ -1,0 +1,117 @@
+@import '../../../../mixin/mixin';
+
+.SendCheckComp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 30px;
+    &__textbox{
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        .title{
+            font-family: "Noto Sans JP";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .text{
+            font-family: "Noto Sans JP";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+        }
+        .note{
+            font-family: "Noto Sans JP";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            display: flex;
+            gap: 5px;
+            color: rgb(46, 46, 46);
+            &::before{
+                content: '\203B';
+            }
+        }
+        .subtitle{
+            font-family: "Noto Sans JP";
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            margin-top: 20px;
+        }
+    }
+    .buttonbox{
+        font-family: "Noto Sans JP";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        background: linear-gradient(134deg, #D4043B 1.25%, #360778 75.77%);
+        width: 250px;
+        height: 40px;
+        border-radius: 25px;
+        position: relative;
+        z-index: 2;
+
+        @media screen and (max-width: 768px) {
+            margin-top: 0px;
+        }
+
+        .button {
+            font-family: "Noto Sans JP";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            background: linear-gradient(134deg, #D4043B 1.25%, #360778 75.77%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 245px;
+            height: 36px;
+            background-color: #fff;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        &:hover {
+            background: linear-gradient(134deg, #D4043B 1.25%, #360778 75.77%);
+
+            .button {
+                background: none;
+                color: #fff;
+                -webkit-text-fill-color: #fff;
+                transition: 0.3s;
+            }
+
+            &::before {
+                transition: 0.3s;
+                background-color: #f8f8f800;
+            }
+        }
+    }
+}

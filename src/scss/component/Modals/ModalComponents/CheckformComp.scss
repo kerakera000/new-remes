@@ -1,0 +1,311 @@
+@import '../../../mixin/mixin';
+
+
+.modalcheck{
+    width: 100%;
+    height: 100%;
+    background-color: #F8F8F8;
+    position: relative;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    opacity: 1;
+    transition: 1.5s;
+    transition-property: opacity;
+    @media screen and (max-width: 768px) {
+        gap: 15px;
+    }
+    @media screen and (max-width: 425px) {
+        padding: 0px;
+    }
+    .flexbox {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 25px;
+        width: 100%;
+        height: 95%;
+        gap: 5%;
+        max-width: 1200px;
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            overflow-y: scroll;
+            padding: 0%;
+        }
+        .formbox{
+            width: 55%;
+            height: 100%;
+            padding-right: 25px;
+            overflow-y: scroll;
+            @media screen and (max-width: 768px) {
+                width: 100%;
+                overflow-y: unset;
+                padding-right: 10px;
+                height: auto;
+            }
+            @media screen and (max-width: 425px) {
+                padding-right: 0px;
+            }
+            &__boxtype{
+                background-color: #FFFFFF;
+                padding: 32px 60px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-direction: column;
+                position: relative;
+                .title{
+                    color: #000;
+                    text-align: center;
+                    font-family: "Noto Sans JP";
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 20px;
+                    margin-bottom: 30px;
+                }
+                .text{
+                    color: #000;
+                    font-family: "Noto Sans JP";
+                    font-size: 15px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    width: 100%;
+                    margin-bottom: 6px;
+                }
+                .button{
+                    color: #505050;
+                    font-family: "Noto Sans JP";
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 300;
+                    line-height: normal;
+                    text-decoration-line: underline;
+                    text-decoration-style: solid;
+                    text-decoration-skip-ink: none;
+                    text-decoration-thickness: auto;
+                    text-underline-offset: auto;
+                    text-underline-position: from-font;
+                    position: absolute;
+                    bottom: 32px;
+                    right: 32px;
+                }
+            }
+            &__texttype{
+                padding: 32px 19px;
+                .text{
+                    color: #000;
+                    font-family: "Noto Sans JP";
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+        }
+        .order_item {
+            width: 45%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            background: #FFF;
+            box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.03);
+            padding: 25px 30px;
+            @media screen and (max-width: 768px) {
+                width: 100%;
+                overflow-y: unset;
+            }
+            &__title {
+                color: #2F2F2F;
+                font-family: "Noto Sans JP";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 16px;
+            }
+
+            &__content {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 14px;
+                width: 100%;
+                margin-top: 20px;
+
+                .img {
+                    min-width: 100px;
+                }
+
+                .textbox {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                    gap: 7px;
+                    width: 100%;
+
+                    &__name {
+                        color: #2F2F2F;
+                        font-family: "Noto Sans JP";
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+
+                    &__contract_period {
+                        color: #000;
+                        font-family: "Noto Sans JP";
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 300;
+                        line-height: 14px;
+                    }
+
+                    &__price {
+                        color: #2D2D2D;
+                        font-family: "Noto Sans JP";
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 14px;
+                        /* 100% */
+                        letter-spacing: 0.42px;
+                        margin-left: auto;
+
+                        .tax {
+                            color: #6D6D6D;
+                            font-family: "Noto Sans JP";
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 14px;
+                        }
+                    }
+                }
+            }
+
+            &__paybox{
+                width: 100%;
+                margin-top: 42px;
+                .text{
+                    color: #000;
+                    font-family: "Noto Sans JP";
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 20px;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: flex-start;
+                    width: 100%;
+                    &__price{
+                        color: #2D2D2D;
+                        font-family: "Noto Sans JP";
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 14px;
+                        letter-spacing: 0.6px;
+                        margin-left: auto;
+                    }
+                    &__tax{
+                        color: #6D6D6D;
+                        font-family: "Noto Sans JP";
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 14px;
+                    }
+                }
+            }
+        }
+    }
+    &__close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+    .submitbuttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        width: 100%;
+        margin-bottom: 20px;
+        @media screen and (max-width: 768px) {
+            margin-bottom: 0;
+            padding-top: 20px;
+        }
+        @media screen and (max-width: 425px) {
+            margin-bottom: 10px;
+            padding-top: 15px;
+        }
+        &__button{
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            .btn1 {
+                width: 40%;
+                height: 43px;
+                border-radius: 21.5px;
+                border: 1px solid #C33131;
+                background: #FFF;
+                position: relative;
+                max-width: 181px;
+        
+                &__img {
+                    position: absolute;
+                    transform: translate(-50%, -50%);
+                    top: 54%;
+                    left: 15%;
+                    width: 12px;
+                    height: 12px;
+                }
+        
+                &__text {
+                    color: #C33131;
+                    font-family: "Noto Sans JP";
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                }
+            }
+        
+            .btn2 {
+                width: 40%;
+                height: 43px;
+                border-radius: 21.5px;
+                background: #C33131;
+                position: relative;
+                max-width: 181px;
+        
+                &__img {
+                    position: absolute;
+                    transform: translate(-50%, -50%);
+                    top: 54%;
+                    right: 15%;
+                    width: 12px;
+                    height: 12px;
+                }
+        
+                &__text {
+                    color: #FFF;
+                    font-family: "Noto Sans JP";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                }
+            }
+        }
+    }
+}

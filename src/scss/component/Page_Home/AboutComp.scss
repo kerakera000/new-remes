@@ -1,0 +1,332 @@
+@import '../../mixin/mixin';
+
+
+.about {
+    background: linear-gradient(180deg, #020001 30%, #400D0F 100%) ;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 100px 0 180px 0;
+    @media screen and (max-width: 425px) {
+        padding: 40px 0 100px 0;
+    }
+    &__textbox {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        max-width: 1400px;
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            width: 50%;
+            min-width: 500px;
+
+            @media screen and (max-width: 768px) {
+                padding: 0 24px;
+                min-width: 100%;
+            }
+
+            .Abouttitle{
+                color: #1A1A1A;
+                font-family: "Noto Sans JP";
+                font-size: 300px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 230px;
+                letter-spacing: 30px;
+                @media screen and (max-width: 768px) {
+                    letter-spacing: 20px;
+                    font-size: 200px;
+                }
+                @media screen and (max-width: 425px) {
+                    letter-spacing: 15px;
+                    line-height: 130px;
+                    font-size: 90px;
+                }
+            }
+
+            .subtitle {
+                color: #FFF;
+                font-family: "Noto Sans JP", sans-serif;
+                font-size: 36px;
+                font-style: normal;
+                font-weight: 700;
+                text-align: center;
+                margin-top: 70px;
+                line-height: normal;
+
+                @media screen and (max-width: 500px) {
+                    font-size: 26px;
+                }
+
+                @media screen and (max-width: 425px) {
+                    margin-top: 31px;
+                }
+
+                .small {
+                    font-size: 28px;
+
+                    @media screen and (max-width: 500px) {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .text {
+                color: #FFF;
+                font-family: "Noto Sans JP";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 40px;
+                letter-spacing: 0.72px;
+                margin-top: 30px;
+                line-height: 30px;
+                width: 490px;
+
+                @media screen and (max-width: 500px) {
+                    width: 100%;
+                }
+            }
+
+            .img5 {
+                width: 226px;
+                height: 151px;
+                flex-shrink: 0;
+                margin-top: 141px;
+                margin-left: auto;
+                margin-right: 15px;
+
+                @media screen and (max-width: 768px) {
+                    display: none;
+                }
+            }
+        }
+
+        .imgbox {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            width: 20%;
+            min-width: 367px;
+            padding-top: 100px;
+            z-index: 2;
+            @media screen and (max-width: 768px) {
+                display: none;
+            }
+
+            .img1 {
+                width: 218px;
+                min-height: 326px;
+                flex-shrink: 0;
+                padding-top: 85px;
+                margin-right: auto;
+            }
+
+            .img2 {
+                width: 279px;
+                height: 155px;
+                flex-shrink: 0;
+                margin-left: auto;
+                margin-top: 85px;
+            }
+
+            .img3 {
+                width: 225px;
+                min-height: 120px;
+                flex-shrink: 0;
+                padding-top: 125px;
+            }
+
+            .img4 {
+                width: 188px;
+                height: 282px;
+                flex-shrink: 0;
+                margin-top: 107px;
+            }
+        }
+
+        .spimgbox {
+            display: none;
+            margin-top: 32px;
+
+            @media screen and (max-width: 768px) {
+                display: block;
+                position: relative;
+                width: 100%;
+                height: 300px;
+                max-width: 500px;
+            }
+
+            .img {
+                @media screen and (max-width: 768px) {
+                    display: block;
+                    position: absolute;
+                }
+            }
+
+            .img1 {
+                width: 83px;
+                height: 123px;
+                flex-shrink: 0;
+                top: 0%;
+                left: 0%;
+                transform: translate(-0%, 4%);
+            }
+
+            .img2 {
+                width: 105px;
+                height: 59px;
+                flex-shrink: 0;
+                top: 30%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .img3 {
+                width: 119px;
+                height: 64px;
+                flex-shrink: 0;
+                top: 0%;
+                left: 50%;
+                transform: translate(80%, -0%);
+            }
+
+            .img4 {
+                width: 99px;
+                height: 150px;
+                flex-shrink: 0;
+                top: 50%;
+                left: 50%;
+                transform: translate(100%, -40%);
+            }
+
+            .img5 {
+                width: 120px;
+                height: 80px;
+                flex-shrink: 0;
+                top: 55%;
+                left: 10%;
+                transform: translate(-0%, -0%);
+            }
+        }
+    }
+
+    &__flow {
+        margin-top: 130px;
+        width: 100%;
+        max-width: 1400px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        @media screen and (max-width: 425px) {
+            margin-top: 90px;
+        }
+        .flowTitle{
+            color: rgba(146, 146, 146, 0.17);
+            font-family: "Noto Sans JP";
+            font-size: 200px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 230px;
+            /* 115% */
+            letter-spacing: 20px;
+            width: auto;
+            @media screen and (max-width: 425px) {
+                letter-spacing: 15px;
+                line-height: 130px;
+                font-size: 120px;
+            }
+        }
+        .flow_box {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin-top: 100px;
+            width: 100%;
+            @media screen and (max-width: 768px) {
+                flex-direction: column;
+                align-items: center;
+                gap: 85px;
+            }
+
+            @media screen and (max-width: 425px) {
+                margin-top: 60px;
+            }
+
+            .item {
+                @include gaps(16px, 4);
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-direction: column;
+                @media screen and (max-width: 768px) {
+                    width: 100%;
+                }
+
+                .title {
+                    border-radius: 17.5px;
+                    background: #FFF;
+                    width: 180px;
+                    height: 40px;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #C33131;
+                    font-family: "Oswald", sans-serif;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 30px;
+                }
+
+                .img {
+                    width: auto;
+                    height: auto;
+                    margin-top: 20px;
+                }
+
+                .subtitle{
+                    color: #FFF;
+                    font-family: "Noto Sans JP";
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 30px;
+                    letter-spacing: 1.8px;
+                }
+
+                .text {
+                    color: #FFF;
+                    font-family: "Noto Sans JP";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 26px;
+                    letter-spacing: 0.96px;
+                    max-width: 240px;
+                    margin-top: 20px;
+                    @media screen and (max-width: 768px) {
+                        text-align: center;
+                        br {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

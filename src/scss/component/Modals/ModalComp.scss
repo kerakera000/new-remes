@@ -1,0 +1,39 @@
+
+@import '../../mixin/mixin';
+@import './ModalComponents/AuthComp';
+@import './ModalComponents/CheckformComp';
+@import './ModalComponents/CompleteComp';
+@import './ModalComponents/DetailComp';
+@import './ModalComponents/FormComp';
+@import './ModalComponents/BreadcrumbComp/breadcrumb';
+
+.modal_back {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    background: rgba(0, 0, 0, 0.821);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+
+    &.active {
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        pointer-events: all;
+        opacity: 1;
+        transition: 0.3s;
+    }
+
+    .modal {
+        opacity: 0;
+        transition: 1.5s;
+    }
+}

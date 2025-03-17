@@ -1,0 +1,190 @@
+@import '../../mixin/mixin';
+
+.lineup {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 80px 66px 160px;
+
+    @media screen and (max-width: 768px) {
+        padding: 66px 24px;
+    }
+    .LineupTitle_jp{
+        color: #2E2E2E;
+        font-family: "Noto Sans JP";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+        /* 100% */
+        letter-spacing: 4px;
+    }
+    .LineupTitle_en{
+        font-family: "Noto Sans JP";
+        font-size: 120px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 130px;
+        /* 108.333% */
+        letter-spacing: -2.4px;
+        background: linear-gradient(90deg, #232323 32.56%, #8A1919 96.01%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        @media screen and (max-width: 425px) {
+            line-height: 130px;
+            font-size: 70px;
+        }
+    }
+
+    &__itembox {
+        width: 100%;
+        max-width: 1100px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 70px 90px;
+        margin-top: 76px;
+
+        @media screen and (max-width: 1024px) {
+            gap: 50px 40px;
+        }
+
+        @media screen and (max-width: 425px) {
+            margin-top: 25px;
+        }
+
+        .item {
+            @include gaps(90px, 2);
+
+            @media screen and (max-width: 1024px) {
+                @include gaps(40px, 2);
+            }
+
+            @media screen and (max-width: 525px) {
+                width: 100%;
+            }
+
+            &__spec {
+                width: 100%;
+            }
+
+            &__title {
+                color: #2F2F2F;
+                font-family: "Noto Sans JP";
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 24px;
+                margin-top: 14px;
+            }
+
+            &__tag {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 15px;
+
+                @media screen and (max-width: 525px) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0;
+                }
+
+                .tag {
+                    color: #C33131;
+                    font-family: "Noto Sans JP";
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                }
+            }
+
+            &__tax {
+                color: #2F2F2F;
+                font-family: "Noto Sans JP";
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 700;
+                margin-top: 20px;
+
+                .text {
+                    font-size: 16px;
+                }
+            }
+
+            &__btn {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                @media screen and (max-width: 1024px) {
+                    margin-top: 20px;
+                }
+
+                .sample_btn_type2 {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 181px;
+                    height: 43px;
+                    text-decoration: none;
+                    line-height: 60px;
+                    outline: none;
+                    color: #FFFFFF;
+                    font-family: "Noto Sans JP";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    background: linear-gradient(80deg, #C33131 5.04%, #360778 57.82%);
+                    background-position: 0% 50%;
+                    background-size: 200% auto;
+                    transition: all 0.3s ease-out;
+                    border-radius: 50px;
+
+                    @media screen and (max-width: 525px) {
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        color: #fff;
+                        background-position: 100% 51%;
+                    }
+                }
+
+                .sample_btn_type1 {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 181px;
+                    height: 43px;
+                    text-decoration: none;
+                    line-height: 60px;
+                    outline: none;
+                    color: #FFFFFF;
+                    font-family: "Noto Sans JP";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    background: linear-gradient(80deg, #C33131 5.04%, #360778 57.82%);
+                    background-position: 0% 50%;
+                    background-size: 200% auto;
+                    transition: all 0.3s ease-out;
+                    border-radius: 50px;
+
+                    @media screen and (max-width: 525px) {
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        color: #fff;
+                        background-position: 100% 51%;
+                    }
+                }
+            }
+        }
+    }
+}

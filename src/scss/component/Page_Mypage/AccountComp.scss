@@ -1,0 +1,163 @@
+@use '../../common/common';
+@import '../../mixin/mixin';
+
+.AccountComp{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    max-width: 1400px;
+    width: 100%;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.03);
+    padding: 30px;
+    
+    @media screen and (max-width: 425px) {
+        padding: 30px 24px;
+    }
+    &__sizebox{
+        max-width: 700px;
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 25px;
+    }
+    &__content{
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        .title{
+            color: #2F2F2F;
+            font-family: "Noto Sans JP";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+        .content{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 14px;
+            width: 100%;
+            @media screen and (max-width: 650px) {
+                flex-direction: column;
+            }
+            &.name{
+                @media screen and (max-width: 650px) {
+                    flex-direction: row;
+                }
+            }
+            .inputflex{
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 14px;
+                @include gaps(14px, 2);
+                @media screen and (max-width: 650px) {
+                    width: 100%;
+                }
+            }
+
+            .inputbox{
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 4px;
+                &.twobox{
+                    @include gaps(14px, 2);
+                    @media screen and (max-width: 650px) {
+                        width: 100%;
+                    }
+                }
+                &.maxbox{
+                    width: 100%;
+                }
+                .text{
+                    color: #2F2F2F;
+                    font-family: "Noto Sans JP";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+                .input{
+                    width: 100%;
+                    border-radius: 5px;
+                    border: 1px solid #DBDBDB;
+                    background: #FFF;
+                    padding: 5px 10px;
+                    font-family: "Noto Sans JP";
+                    font-weight: 400;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .changepass{
+            color: #006FFF;
+            font-family: "Noto Sans JP";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-decoration-line: underline;
+        }
+    }
+
+    .signout{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        .img{
+            height: 1lh;
+        }
+        .text{
+            color: #006FFF;
+            font-family: "Noto Sans JP";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-decoration-line: underline;
+        }
+    }
+
+    .save{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .submit {
+            border-radius: 21.5px;
+            background: #C33131;
+            width: 201px;
+            height: 43px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-family: "Noto Sans JP";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            position: relative;
+            padding-bottom: 3px;
+            .img {
+                position: absolute;
+                top: 50%;
+                right: 5%;
+                transform: translate(-50%,-50%);
+            }
+        }
+    }
+}

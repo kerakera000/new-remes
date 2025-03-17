@@ -1,0 +1,11 @@
+.scroll_box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.scroll_box img {
+    height: 23px;
+    transition: transform 0.5s ease;
+}

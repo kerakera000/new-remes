@@ -1,0 +1,221 @@
+.formcontent {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 65%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translate(-0%, -0%);
+    transition: 0.5s;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 70%;
+    }
+    &.check {
+        width: 100%;
+        height: 100%;
+        padding: 0 30px;
+        overflow-y: auto;
+    }
+
+    &.active {
+        left: 100%;
+        transform: translate(-100%, -0%);
+        transition: 0.5s;
+
+        @media screen and (max-width: 768px) {
+            left: 0%;
+            transform: translate(0%, -0%);
+        }
+    }
+
+    .auth_cont {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 20px;
+        width: 100%;
+        height: 100%;
+        max-width: 400px;
+
+        @media screen and (max-width: 768px) {
+            justify-content: flex-start;
+            padding: 40px 20px 0;
+        }
+
+        .title {
+            font-family: "Noto Sans JP";
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 25px;
+        }
+
+        .text {
+            font-family: "Noto Sans JP";
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            color: #979797;
+        }
+
+        .google_button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            border: 1px solid rgb(243, 242, 242);
+            background-color: #F8F8F8;
+            width: 100%;
+            padding: 10px 20px;
+            position: relative;
+
+            span {
+                font-family: "Noto Sans JP";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 1.5;
+                display: block;
+            }
+
+            img {
+                height: 1.5lh;
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                transform: translate(-0, -50%);
+            }
+        }
+
+        .formbox {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            @media screen and (max-width: 768px) {
+                gap: 10px;
+            }
+            .input_field {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                border: 1px solid rgb(243, 242, 242);
+                background-color: #F8F8F8;
+                width: 100%;
+                padding: 10px 20px;
+                line-height: 1.5;
+
+                img {
+                    height: 1lh;
+                }
+
+                input {
+                    width: 100%;
+                    border: 0;
+                    background-color: #F8F8F8;
+                    font-family: "Noto Sans JP";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 1.5;
+                }
+
+                input:focus,
+                input:active {
+                    outline: none;
+                    /* フォーカス時の枠線を無効化 */
+                    box-shadow: none;
+                    /* フォーカス時の影があれば無効化 */
+                    background-color: #F8F8F8;
+                    /* クリックしても背景色が変わらないように設定 */
+                    border: 0;
+                    /* クリックしても枠が表示されないようにする */
+                }
+            }
+            .error_message{
+                color: #D4043B;
+                font-family: "Noto Sans JP";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 1.5;
+                white-space: pre-line;
+            }
+
+            .submit_button {
+                font-family: "Noto Sans JP";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                background: linear-gradient(134deg, #D4043B 1.25%, #360778 75.77%);
+                width: 250px;
+                height: 40px;
+                border-radius: 25px;
+                position: relative;
+                z-index: 2;
+
+                @media screen and (max-width: 768px) {
+                    margin-top: 0px;
+                }
+
+                .text {
+                    font-family: "Noto Sans JP";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    background: linear-gradient(134deg, #D4043B 1.25%, #360778 75.77%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    z-index: -1;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 245px;
+                    height: 36px;
+                    background-color: #fff;
+                    border-radius: 25px;
+                    transition: 0.3s;
+                }
+
+                &:hover {
+                    background: linear-gradient(134deg, #D4043B 1.25%, #360778 75.77%);
+
+                    .text {
+                        background: none;
+                        color: #fff;
+                        -webkit-text-fill-color: #fff;
+                        transition: 0.3s;
+                    }
+
+                    &::before {
+                        transition: 0.3s;
+                        background-color: #f8f8f800;
+                    }
+                }
+            }
+        }
+    }
+
+    .passcheck {
+        font-family: "Noto Sans JP";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        color: #747373;
+        border-bottom: 1px solid #747373;
+    }
+}
