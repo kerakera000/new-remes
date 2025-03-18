@@ -16,11 +16,10 @@ const KvComp: React.FC = () => {
                             レンタル<span className="small">で</span>無駄なく
                         </p>
                         <p className="back_lavel">
-                            賢くゲーミング<span className="small">の</span>時代
-                            <span className="small">へ</span>
+                            快適なゲーミングライフ！
                         </p>
 
-                        <p className="text">ゲーミングPC定額レンタルサービス REMES</p>
+                        <p className="text">ゲーミング環境レンタルサービス</p>
                     </div>
 
                     <div className="kv__box__imgbox">

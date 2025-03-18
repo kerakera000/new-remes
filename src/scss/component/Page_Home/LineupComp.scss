@@ -187,4 +187,31 @@
             }
         }
     }
+    .all_btn{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 150px;
+        .all_btn_link{
+            text-decoration: none;
+            color: #2F2F2F;
+            font-family: "Noto Sans JP";
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #2F2F2F;
+            padding: 10px 20px;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s ease-out;
+            &:hover{
+                background-color: #2F2F2F;
+                color: #fff;
+                transition: all 0.3s ease-out;
+            }
+        }
+    }
 }
