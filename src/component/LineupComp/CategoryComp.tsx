@@ -8,7 +8,7 @@ const CategoryComp: React.FC = () => {
     return (
         <div className="CategoryComp">
             {items.map((item, index) => (
-                <ItemComp key={index} />
+                <ItemComp key={index} id={item.toString()} />
             ))}
         </div>
     );

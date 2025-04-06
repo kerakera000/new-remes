@@ -10,6 +10,7 @@ import Mypage from "./pages/Mypage";
 import Contact from "./pages/Contact";
 import Lineup from "./pages/Lineup";
 import Category from "./pages/Lineup/Category";
+import Detail from "./pages/Detail";
 
 const App: React.FC = () => {
 
@@ -25,6 +26,7 @@ const App: React.FC = () => {
               <Route path="lineup" element={<Lineup />} >
                 <Route path="category" element={<Category />} />
               </Route>
+              <Route path="detail/:id" element={<Detail />} />
             </Route>
           </Routes>
         </Router>

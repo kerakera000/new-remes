@@ -1,10 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import img1 from '../../../assets/item/black.jpg';
 import img2 from '../../../assets/item/white.jpg';
 
-const ItemComp: React.FC = () => {
+interface ItemCompProps {
+    id?: string;
+}
+
+const ItemComp: React.FC<ItemCompProps> = ({ id = "1" }) => {
     return (
-        <a href="#" className="ItemComp">
+        <Link to={`/detail/${id}`} className="ItemComp">
             <div className="ItemComp_img">
                 <img className="img1" src={img1} alt="img" />
                 <img className="img2" src={img2} alt="img" />
@@ -16,7 +21,7 @@ const ItemComp: React.FC = () => {
                     <p className="price red"><span className="symbol">￥</span><span className="price_number">2500~</span></p>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 };
 
