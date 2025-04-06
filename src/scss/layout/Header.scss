@@ -2,17 +2,104 @@
 
 .header {
     width: 100%;
-    height: 71px;
     background-color: #FFF;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px 0 80px;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 50px 0px 80px;
     position: fixed;
     z-index: 999;
 
     @media screen and (max-width: 1024px) {
         padding: 0 50px 0 25px;
+    }
+
+    .header_mainlauout{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        @media screen and (max-width: 1024px) {
+            padding: 0 50px 0 25px;
+            height: 71px;
+        }
+    }
+    .header_lineup{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 15px 0 0;
+        @media screen and (max-width: 1024px) {
+            position: fixed;
+            top: 71px;
+            left: 0;
+            width: 100%;
+            height: 71px;
+            background-color: #FFF;
+            border-top: 1px solid #dadada;
+        }
+        .all_btn_link{
+            text-decoration: none;
+            color: #2F2F2F;
+            font-family: "Noto Sans JP";
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            border-right: 1px solid #999999;
+            padding: 15px 30px;
+            background-color: #C33131;
+            color: #FFF;
+            .category_list{
+               display: none;
+            }
+            &:hover{
+                background-color: #333333;
+                color: #C33131;
+                transition: all 0.3s ease-out;
+                .category_list{
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 250px;
+                    background-color: #FFF;
+                    transition: all 0.3s ease-out;
+                    padding: 0px 0 30px;
+                    box-shadow: 0 8px 16px #0003;
+                    .category_list__item{
+                        padding: 15px 30px;
+                        cursor: pointer;
+                        text-align:left;
+                        color: #333333;
+                        flex-wrap: nowrap;
+                        width: 100%;
+                        &:hover{
+                            cursor: pointer;
+                            color: #C33131;
+                            transition: all 0.3s ease-out;
+                        }
+                    }
+                }
+            }
+            &.Lowerpage{
+                background-color: #FFF;
+                color: #333333;
+                transition: all 0.3s ease-out;
+                position: relative;
+                &:hover{
+                    color: #C33131;
+                    transition: all 0.3s ease-out;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 
     .logo {

@@ -1,0 +1,104 @@
+@import '../../mixin/mixin';
+
+.CategoryComp {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 120px auto 0;
+    padding: 0 32px;
+    @media (max-width: 425px) {
+        padding: 0 24px;
+    }
+    .ItemComp{
+        @include gaps(20px, 4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        transition: all 0.5s ease;
+        border: 1px solid #22222200;
+        border-radius: 10px;
+        overflow: hidden;
+        text-decoration: none;
+        padding: 16px 20px 10px;
+        gap: 20px;
+        @media (max-width: 768px) {
+            @include gaps(20px, 3);
+        }
+        @media (max-width: 425px) {
+            @include gaps(20px, 2);
+        }
+        .ItemComp_img{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            .img1{
+                transition: all 0.5s ease;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .img2{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 100%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                transition: all 0.5s ease;
+            }
+        }
+        .ItemComp_text{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            .title{
+                font-size: 16px;
+                font-weight: 600;
+                color: #000;
+                text-align: center;
+            }
+            .price_box{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                .price{
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #000;
+                    text-align: center;
+                    &.red{
+                        color: #e03131;
+                    }
+                    .symbol{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        &:hover{
+            transition: all 0.5s ease;
+            border: 1px solid #222222;
+            .ItemComp_img{
+                .img1{
+                    opacity: 0;
+                    transition: all 0.5s ease;
+                }
+                .img2{
+                    transition: all 0.5s ease;
+                    transform: translate(-50%, -50%);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+

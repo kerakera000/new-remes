@@ -23,9 +23,9 @@ const LineupComp: React.FC = () => {
                         ¥5,000<span className="text">(税込)~</span>
                     </h2>
                     <div className="item__btn">
-                        <button className="sample_btn_type1" onClick={() => openModal('detail')}>
+                        <Link to="/lineup/category" className="sample_btn_type1">
                             一覧を見る
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
@@ -37,9 +37,9 @@ const LineupComp: React.FC = () => {
                         ¥5,000<span className="text">(税込)~</span>
                     </h2>
                     <div className="item__btn">
-                        <button className="sample_btn_type2"onClick={() => openModal('detail')}>
+                        <Link to="/lineup/category" className="sample_btn_type1">
                             一覧を見る
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
@@ -51,9 +51,9 @@ const LineupComp: React.FC = () => {
                         ¥5,000<span className="text">(税込)~</span>
                     </h2>
                     <div className="item__btn">
-                        <button className="sample_btn_type1" onClick={() => openModal('detail')}>
+                        <Link to="/lineup/category" className="sample_btn_type1">
                             一覧を見る
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
@@ -65,9 +65,9 @@ const LineupComp: React.FC = () => {
                         ¥5,000<span className="text">(税込)~</span>
                     </h2>
                     <div className="item__btn">
-                        <button className="sample_btn_type2" onClick={() => openModal('detail')}>
+                        <Link to="/lineup/category" className="sample_btn_type1">
                             一覧を見る
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -15,6 +15,9 @@ const Header: React.FC = () => {
     const { user, loading } = useAuth();
     const { openModal } = useModal();
 
+    // header_lineupを表示するかどうかの状態変数
+    const [showLineup, setShowLineup] = useState(false);
+
     const toggleActive = () => {
         setIsActive(!isActive);
     };
@@ -34,6 +37,11 @@ const Header: React.FC = () => {
         if (location.pathname === "/mypage" || location.pathname === "/contact") {
             window.scrollTo(0, 0);
         }
+    }, [location.pathname]);
+
+    useEffect(() => {
+        // パス名が/lineupで始まるかどうかを確認
+        setShowLineup(location.pathname.startsWith('/lineup'));
     }, [location.pathname]);
 
     // Linkをクリックした際にisActiveをfalseにする関数
@@ -122,62 +130,98 @@ const Header: React.FC = () => {
 
     return (
         <header className="header">
-            <Link to="/" className="logo" onClick={handleLinkClick}>
-                <img src={logoBlack} alt="Logo" />
-            </Link>
+            <div className="header_mainlauout">
+                <Link to="/" className="logo" onClick={handleLinkClick}>
+                    <img src={logoBlack} alt="Logo" />
+                </Link>
 
-            <div className={`buttons ${isActive ? "active" : ""}`} onClick={toggleActive}>
-                <span className="button button1"></span>
-                <span className="button button2"></span>
-                <span className="button button3"></span>
+                <div className={`buttons ${isActive ? "active" : ""}`} onClick={toggleActive}>
+                    <span className="button button1"></span>
+                    <span className="button button2"></span>
+                    <span className="button button3"></span>
+                </div>
+
+                <nav className={`header__nav ${isActive ? "active" : ""}`}>
+                    <Link to="/" className="item logo" onClick={handleLinkClick}>
+                        <img src={logoWhite} alt="Logo" />
+                    </Link>
+
+                    {/* 認証状態に応じて表示を切り替える */}
+                    <Link to="/mypage" className="item mypage" onClick={handleMypageClick}>
+                        {user ? "マイページ" : "サインイン"}
+                    </Link>
+
+                    <Link to={{ pathname: "/", hash: "#ABOUT" }} className="item" onClick={handleLinkClick}>
+                        サービス内容
+                        <img className="white" src={Vectorwhite} alt=">" />
+                    </Link>
+
+                    <Link to={{ pathname: "/", hash: "#FAQ" }} className="item" onClick={handleLinkClick}>
+                        よくある質問
+                        <img className="white" src={Vectorwhite} alt=">" />
+                    </Link>
+
+                    <Link to="/" className="item-typesp" onClick={handleLinkClick}>
+                        公式Instagram
+                        <img className="white" src={Vectorwhite} alt=">" />
+                    </Link>
+
+                    <Link to="/" className="item-typesp" onClick={handleLinkClick}>
+                        プライバシーポリシー
+                        <img className="white" src={Vectorwhite} alt=">" />
+                    </Link>
+
+                    <Link to="/" className="item-typesp" onClick={handleLinkClick}>
+                        特定商取引に関する表記
+                        <img className="white" src={Vectorwhite} alt=">" />
+                    </Link>
+
+                    <Link to="/contact" className="item contact" onClick={handleLinkClick}>
+                        お問い合わせ
+                        <img className="white" src={Vectorwhite} alt=">" />
+                    </Link>
+
+                    <Link to={{ pathname: "/", hash: "#RENTAL" }} className="rental" onClick={handleLinkClick}>
+                        ラインナップ
+                        <img className="white" src={Vectorwhite} alt=">" />
+                        <img className="red" src={Vectorred} alt=">" />
+                    </Link>
+                </nav>
             </div>
-
-            <nav className={`header__nav ${isActive ? "active" : ""}`}>
-                <Link to="/" className="item logo" onClick={handleLinkClick}>
-                    <img src={logoWhite} alt="Logo" />
-                </Link>
-
-                {/* 認証状態に応じて表示を切り替える */}
-                <Link to="/mypage" className="item mypage" onClick={handleMypageClick}>
-                    {user ? "マイページ" : "サインイン"}
-                </Link>
-
-                <Link to={{ pathname: "/", hash: "#ABOUT" }} className="item" onClick={handleLinkClick}>
-                    サービス内容
-                    <img className="white" src={Vectorwhite} alt=">" />
-                </Link>
-
-                <Link to={{ pathname: "/", hash: "#FAQ" }} className="item" onClick={handleLinkClick}>
-                    よくある質問
-                    <img className="white" src={Vectorwhite} alt=">" />
-                </Link>
-
-                <Link to="/" className="item-typesp" onClick={handleLinkClick}>
-                    公式Instagram
-                    <img className="white" src={Vectorwhite} alt=">" />
-                </Link>
-
-                <Link to="/" className="item-typesp" onClick={handleLinkClick}>
-                    プライバシーポリシー
-                    <img className="white" src={Vectorwhite} alt=">" />
-                </Link>
-
-                <Link to="/" className="item-typesp" onClick={handleLinkClick}>
-                    特定商取引に関する表記
-                    <img className="white" src={Vectorwhite} alt=">" />
-                </Link>
-
-                <Link to="/contact" className="item contact" onClick={handleLinkClick}>
-                    お問い合わせ
-                    <img className="white" src={Vectorwhite} alt=">" />
-                </Link>
-
-                <Link to={{ pathname: "/", hash: "#RENTAL" }} className="rental" onClick={handleLinkClick}>
-                    ラインナップ
-                    <img className="white" src={Vectorwhite} alt=">" />
-                    <img className="red" src={Vectorred} alt=">" />
-                </Link>
-            </nav>
+            {/* header_lineupを条件付きでレンダリング */}
+            {showLineup && (
+                <div className="header_lineup">
+                    <Link to="/lineup" className="all_btn_link">
+                        商品一覧
+                    </Link>
+                    <div className="all_btn_link Lowerpage">
+                        キーボード
+                        <ul className="category_list">
+                            <li className="category_list__item">キーボードキーボード</li>
+                            <li className="category_list__item">キーボード</li>
+                            <li className="category_list__item">キーボード</li>
+                            <li className="category_list__item">キーボード</li>
+                            <li className="category_list__item">キーボード</li>
+                            <li className="category_list__item">キーボード</li>
+                            <li className="category_list__item">キーボード</li>
+                            <li className="category_list__item">キーボード</li>
+                        </ul>
+                    </div>
+                    <div className="all_btn_link Lowerpage">
+                        マウス
+                        <ul className="category_list">
+                            <li className="category_list__item">マウス</li>
+                            <li className="category_list__item">マウス</li>
+                            <li className="category_list__item">マウス</li>
+                            <li className="category_list__item">マウス</li>
+                            <li className="category_list__item">マウス</li>
+                            <li className="category_list__item">マウス</li>
+                            <li className="category_list__item">マウス</li>
+                            <li className="category_list__item">マウス</li>
+                        </ul>
+                    </div>
+                </div>
+            )}
         </header>
     );
 };

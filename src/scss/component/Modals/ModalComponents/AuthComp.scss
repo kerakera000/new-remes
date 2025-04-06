@@ -1,7 +1,7 @@
-@import '../../../mixin/mixin';
-@import './AuthpageComp/signINUPComp';
-@import './AuthpageComp/checkComp';
-@import './AuthpageComp/checkpassComp';
+@use '../../../mixin/mixin';
+@use './AuthpageComp/signINUPComp';
+@use './AuthpageComp/checkComp';
+@use './AuthpageComp/checkpassComp';
 
 .modalauth {
     width: 100%;

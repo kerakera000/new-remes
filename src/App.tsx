@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Mypage from "./pages/Mypage";
 import Contact from "./pages/Contact";
 import Lineup from "./pages/Lineup";
+import Category from "./pages/Lineup/Category";
 
 const App: React.FC = () => {
 
@@ -21,7 +22,9 @@ const App: React.FC = () => {
               <Route index element={<Home />} />
               <Route path="mypage" element={<Mypage />} />
               <Route path="contact" element={<Contact />} />
-              <Route path="lineup" element={<Lineup />} />
+              <Route path="lineup" element={<Lineup />} >
+                <Route path="category" element={<Category />} />
+              </Route>
             </Route>
           </Routes>
         </Router>
