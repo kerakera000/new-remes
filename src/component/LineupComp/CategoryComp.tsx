@@ -7,9 +7,12 @@ const CategoryComp: React.FC = () => {
 
     return (
         <div className="CategoryComp">
-            {items.map((item, index) => (
-                <ItemComp key={index} />
-            ))}
+            <h2 className="CategoryComp__title">新規商品</h2>
+            <div className="CategoryComp__content">
+                {items.map((item, index) => (
+                    <ItemComp key={index} id={item.toString()} />
+                ))}
+            </div>
         </div>
     );
 };

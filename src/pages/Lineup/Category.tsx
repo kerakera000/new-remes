@@ -1,12 +1,10 @@
 import React from "react";
-
-// import HomeKvComp from "../component/HomeComp/KvComp";
+import CategoryComp from "../../component/LineupComp/CategoryComp";
 
 const Category: React.FC = () => {
     return (
         <div className="main_content">
-            {/* <!-- トップ --> */}
-            {/* <HomeKvComp /> */}
+            <CategoryComp />
         </div>
     );
 };

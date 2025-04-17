@@ -61,10 +61,11 @@ const Footer: React.FC = () => {
                         </div>
 
                         <div className="cont2__linkbox__information">
-                            <a className="link" href="">公式Instagram</a>
+                            <a className="link" href="">TIKTOK</a>
                             <div className="infobox">
-                                <a className="link" href="">プライバシーポリシー</a>
-                                <a className="link" href="">特定商取引に関する表記</a>
+                                <Link className="link" to="/privacy-policy">プライバシーポリシー</Link>
+                                <Link className="link" to="/terms-of-service">特定商取引に関する表記</Link>
+                                <Link className="link" to="/legal-notice">利用規約</Link>
                             </div>
                         </div>
                     </div>

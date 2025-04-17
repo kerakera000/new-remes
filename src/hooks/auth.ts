@@ -15,6 +15,7 @@ export const useGoogleSignIn = () => {
 
         try {
             const { user } = await signInWithGoogle();
+            
             if (user) {
                 const userDocRef = doc(db, "customers", user.uid);
                 const userDoc = await getDoc(userDocRef);

@@ -4,10 +4,8 @@ import { Link } from "react-router-dom"
 
 import itemImage1 from "../../assets/items/shopitem.svg"; // 画像のインポート
 import itemImage2 from "../../assets/items/shopitem2.svg";
-import { useModal } from "../../context/ModalContext";
 
 const LineupComp: React.FC = () => {
-    const { openModal } = useModal();
 
     return (
         <div id="RENTAL" className="lineup">

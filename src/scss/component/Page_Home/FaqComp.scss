@@ -1,4 +1,4 @@
-@import '../../mixin/mixin';
+@use '../../mixin/mixin' as *;
 
 .accordion {
     margin: 180px 0 220px;
