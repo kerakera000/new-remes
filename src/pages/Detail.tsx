@@ -9,13 +9,11 @@ import product1Img from "../assets/items/detailproduct/product1.png";
 import product2Img from "../assets/items/detailproduct/product2.png";
 import product3Img from "../assets/items/detailproduct/product3.png";
 import arrowImg from "../assets/items/detailproduct/arrow.svg";
-import backImg from "../assets/items/detailproduct/Vector.svg";
 
 const Detail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { user } = useAuth();
     const { openModal } = useModal();
-    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false); // ドロップダウンメニューの開閉状態を管理
     const [selectedText, setSelectedText] = useState<string>(""); // 選択されたオプションのテキストを管理
 
@@ -39,17 +37,9 @@ const Detail: React.FC = () => {
         }
     };
 
-    const handleBackClick = () => {
-        navigate(-1); // 前のページに戻る
-    };
-
     return (
         <div className="main_content">
             <div className="modaldetail page-detail">
-                <button className="modaldetail__back" onClick={handleBackClick}>
-                    <img src={backImg} alt="Back" />
-                    <span>戻る</span>
-                </button>
 
                 <div className="flexbox">
                     <div className="modaldetail__imgbox">

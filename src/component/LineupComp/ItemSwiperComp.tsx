@@ -36,7 +36,12 @@ const ItemSwiperComp: React.FC = () => {
     return (
         <Swiper
             spaceBetween={60}
-            slidesPerView={6}
+            slidesPerView={2}
+            breakpoints={{
+                600: {
+                    slidesPerView: 6,
+                }
+            }}
             centeredSlides={true}
             loop={true}
             speed={7000}
@@ -46,7 +51,6 @@ const ItemSwiperComp: React.FC = () => {
                 pauseOnMouseEnter: true,
             }}
             modules={[Autoplay, Navigation, Pagination]}
-            onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => {
                 swiperRef.current = swiper;
             }}

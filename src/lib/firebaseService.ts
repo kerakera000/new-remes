@@ -1,5 +1,5 @@
 import { getFirestore } from 'firebase/firestore';
-import { collection, addDoc, doc, deleteDoc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, deleteDoc, updateDoc, getDoc, setDoc, query, where, getDocs } from 'firebase/firestore';
 import { app } from './firebaseConfig';
 
 // Firestoreのインスタンスを初期化
@@ -111,4 +111,71 @@ export const setEmailInCustomerDoc = async (userId: string, email: string) => {
     await setDoc(docRef, { email }, { merge: true });
     console.log("メールアドレスが正常に更新されました:", email);
     return true;
+};
+
+interface Product {
+    id: string;
+    stripe_metadata_categories?: string;
+    [key: string]: unknown;
+}
+
+interface Price {
+    active: boolean;
+    unit_amount: number;
+}
+
+// 商品の最安値を取得する関数
+export const getLowestPrice = async (productId: string): Promise<number | undefined> => {
+    try {
+        const pricesRef = collection(db, "products", productId, "prices");
+        const querySnapshot = await getDocs(pricesRef);
+        
+        let lowestPrice: number | undefined;
+        
+        querySnapshot.docs.forEach(doc => {
+            const priceData = doc.data() as Price;
+            if (priceData.active) {
+                const amount = priceData.unit_amount;
+                if (!lowestPrice || amount < lowestPrice) {
+                    lowestPrice = amount;
+                }
+            }
+        });
+        
+        return lowestPrice;
+    } catch (error) {
+        console.error("Error getting lowest price:", error);
+        return undefined;
+    }
+};
+
+// カテゴリーに基づいて商品を取得する関数を修正
+export const getProductsByCategory = async (category: string) => {
+    try {
+        const productsRef = collection(db, "products");
+        const querySnapshot = await getDocs(productsRef);
+        
+        const productsPromises = querySnapshot.docs
+            .map(async doc => {
+                const productData = doc.data();
+                const categories = productData.stripe_metadata_categories?.split(',') || [];
+                
+                if (categories.includes(category)) {
+                    const lowestPrice = await getLowestPrice(doc.id);
+                    return {
+                        id: doc.id,
+                        ...productData,
+                        price: lowestPrice
+                    } as Product;
+                }
+                return null;
+            });
+
+        const products = await Promise.all(productsPromises);
+        return products.filter((product): product is Product => product !== null);
+        
+    } catch (error) {
+        console.error("Error getting products by category:", error);
+        throw error;
+    }
 };
