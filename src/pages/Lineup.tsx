@@ -25,8 +25,11 @@ const Lineup: React.FC = () => {
             <AddjustComp height="120px" />
 
             {/* <!-- 新規商品 --> */}
-            <CategoryComp />
-
+            <CategoryComp title="新規商品" category="new" />
+            <AddjustComp height="120px" />
+            <CategoryComp title="おすすめ商品" category="recommended" />
+            <AddjustComp height="120px" />
+            <CategoryComp title="セール商品" category="sale" />
             <AddjustComp height="120px" />
 
             {/* <!-- サービス内容・ご利用の流れ --> */}

@@ -1,16 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemComp from "./Category/ItemComp";
+import { getProductsByCategory } from "../../lib/firebaseService";
 
-const CategoryComp: React.FC = () => {
-    // サンプルデータ配列
-    const items = [1, 2, 3, 4, 5];
+interface CategoryCompProps {
+    title: string;
+    category: string;
+}
+
+interface Product {
+    id: string;
+    stripe_metadata_categories?: string;
+    name?: string;
+    description?: string;
+    price?: number | undefined;
+    images?: string[];
+    [key: string]: unknown;
+}
+
+const CategoryComp: React.FC<CategoryCompProps> = ({ title, category }) => {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                console.log('検索カテゴリー:', category);
+                const fetchedProducts = await getProductsByCategory(category);
+                console.log('取得したプロダクト:', fetchedProducts);
+                setProducts(fetchedProducts);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+
+        fetchProducts();
+    }, [category]);
 
     return (
         <div className="CategoryComp">
-            <h2 className="CategoryComp__title">新規商品</h2>
+            <h2 className="CategoryComp__title">{title}</h2>
             <div className="CategoryComp__content">
-                {items.map((item, index) => (
-                    <ItemComp key={index} id={item.toString()} />
+                {products.map((product) => (
+                    <ItemComp 
+                        key={product.id} 
+                        id={product.id}
+                        name={product.name}
+                        price={product.price}
+                        images={product.images}
+                    />
                 ))}
             </div>
         </div>

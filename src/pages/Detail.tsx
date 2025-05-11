@@ -1,23 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
 import { useModal } from "../context/ModalContext";
 import { setCookie } from '../utils/cookies';
+import { getProductById } from '../lib/firebaseService';
 
-import shopitemImg from "../assets/items/shopitem.svg";
-import product1Img from "../assets/items/detailproduct/product1.png";
-import product2Img from "../assets/items/detailproduct/product2.png";
-import product3Img from "../assets/items/detailproduct/product3.png";
 import arrowImg from "../assets/items/detailproduct/arrow.svg";
-import backImg from "../assets/items/detailproduct/Vector.svg";
+
+interface Product {
+    id: string;
+    name?: string;
+    description?: string;
+    price?: number;
+    images?: string[];
+    specs?: {
+        [key: string]: string;
+    };
+    rentalOptions?: {
+        period: string;
+        price: number;
+    }[];
+}
 
 const Detail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { user } = useAuth();
     const { openModal } = useModal();
-    const navigate = useNavigate();
-    const [isOpen, setIsOpen] = useState(false); // ドロップダウンメニューの開閉状態を管理
-    const [selectedText, setSelectedText] = useState<string>(""); // 選択されたオプションのテキストを管理
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedText, setSelectedText] = useState<string>("");
+    const [product, setProduct] = useState<Product | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+
+        const fetchProduct = async () => {
+            if (!id) return;
+            try {
+                const productData = await getProductById(id);
+                setProduct(productData);
+            } catch (error) {
+                console.error("Error fetching product:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
+    }, [id]);
 
     const isSelected = selectedText !== "";
 
@@ -27,7 +57,7 @@ const Detail: React.FC = () => {
 
     const selectOption = (text: string, price: string) => {
         setSelectedText(text + (price ? " - " + price : ""));
-        setIsOpen(false); // ドロップダウンを閉じる
+        setIsOpen(false);
     };
 
     const handlePaymentClick = () => {
@@ -39,47 +69,50 @@ const Detail: React.FC = () => {
         }
     };
 
-    const handleBackClick = () => {
-        navigate(-1); // 前のページに戻る
-    };
+    if (loading) {
+        return <div>読み込み中...</div>;
+    }
+
+    if (!product) {
+        return <div>商品が見つかりませんでした。</div>;
+    }
 
     return (
         <div className="main_content">
             <div className="modaldetail page-detail">
-                <button className="modaldetail__back" onClick={handleBackClick}>
-                    <img src={backImg} alt="Back" />
-                    <span>戻る</span>
-                </button>
-
                 <div className="flexbox">
                     <div className="modaldetail__imgbox">
-                        <img className="mainimg" src={shopitemImg} alt="Main Product" />
+                        <img className="mainimg" src={product.images?.[0]} alt={product.name} />
                         <div className="subimg_box">
-                            <img className="subimg_box__img" src={product1Img} alt="Product 1" />
-                            <img className="subimg_box__img" src={product2Img} alt="Product 2" />
-                            <img className="subimg_box__img" src={product3Img} alt="Product 3" />
+                            {product.images?.slice(1).map((image, index) => (
+                                <img 
+                                    key={index}
+                                    className="subimg_box__img" 
+                                    src={image} 
+                                    alt={`${product.name} - ${index + 2}`} 
+                                />
+                            ))}
                         </div>
                     </div>
 
                     <div className="modaldetail__textbox">
-                        <h2 className="title">ROG Ally (2023) RC71L RC71L-Z1512 - ID: {id}</h2>
+                        <h2 className="title">{product.name}</h2>
                         <div className="tagbox">
                             <span className="tag">レンタル可能数5点</span>
                             <span className="tag">在庫残り3点</span>
                         </div>
-                        <p className="text">
-                            ASUS ROG Ally RC71Lは、Windows 11 OSと７インチのタッチパネルを搭載する究極のポータブルゲーム機です。AMD社とASUS ROGがポータブルゲーム機用に開発を行った先端のAMD Ryzen Z1 プロセッサーを搭載しています。
-                        </p>
-                        <div className="spec">
-                            <p className="spec__title">スペック</p>
-                            <div className="spec__tagbox">
-                                <p className="tag">インチ : 7.0型（120Hz）</p>
-                                <p className="tag">CPU : Ryzen Z1</p>
-                                <p className="tag">OS : Windows 11 Home</p>
-                                <p className="tag">メモリ : 16GB/16GB（標準/最大）</p>
-                                <p className="tag">ストレージ : SSD : 512GB</p>
-                            </div>
-                        </div>
+                        <p className="text">{product.description}</p>
+                        
+                        {product.specs && (
+                            <>
+                                <p className="spec__title">スペック</p>
+                                <div className="spec__tagbox">
+                                    {Object.entries(product.specs).map(([key, value]) => (
+                                        <p key={key} className="tag">{key} : {value}</p>
+                                    ))}
+                                </div>
+                            </>
+                        )}
 
                         <h3 className="rental">レンタル期間</h3>
 
@@ -88,30 +121,14 @@ const Detail: React.FC = () => {
                                 <span className="selecttext">{selectedText || "選択して下さい"}</span>
                                 {isOpen && (
                                     <ul className="dropdown_menu">
-                                        <li onClick={() => selectOption("1ヶ月", "￥14,500 (税込み)/月")}>
-                                            <p className="text">1ヶ月</p>
-                                            <p className="price">
-                                                ￥14,500<span className="price__tax">(税込み)/月</span>
-                                            </p>
-                                        </li>
-                                        <li onClick={() => selectOption("3ヶ月", "￥13,500 (税込み)/月")}>
-                                            <p className="text">3ヶ月</p>
-                                            <p className="price">
-                                                ￥13,500<span className="price__tax">(税込み)/月</span>
-                                            </p>
-                                        </li>
-                                        <li onClick={() => selectOption("6ヶ月", "￥12,000 (税込み)/月")}>
-                                            <p className="text">6ヶ月</p>
-                                            <p className="price">
-                                                ￥12,000<span className="price__tax">(税込み)/月</span>
-                                            </p>
-                                        </li>
-                                        <li onClick={() => selectOption("12ヶ月", "￥10,000 (税込み)/月")}>
-                                            <p className="text">12ヶ月</p>
-                                            <p className="price">
-                                                ￥10,000<span className="price__tax">(税込み)/月</span>
-                                            </p>
-                                        </li>
+                                        {product.rentalOptions?.map((option) => (
+                                            <li key={option.period} onClick={() => selectOption(option.period, `￥${option.price.toLocaleString()} (税込み)/月`)}>
+                                                <p className="text">{option.period}</p>
+                                                <p className="price">
+                                                    ￥{option.price.toLocaleString()}<span className="price__tax">(税込み)/月</span>
+                                                </p>
+                                            </li>
+                                        ))}
                                     </ul>
                                 )}
                             </div>
@@ -119,7 +136,6 @@ const Detail: React.FC = () => {
                     </div>
                 </div>
 
-                {/* お支払いボタン */}
                 <button
                     className={`modaldetail__go_payment ${isSelected ? "active" : ""}`}
                     disabled={!isSelected}
