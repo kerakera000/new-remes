@@ -161,11 +161,22 @@ export const getProductsByCategory = async (category: string) => {
                 const categories = productData.stripe_metadata_categories?.split(',') || [];
                 
                 if (categories.includes(category)) {
+                    // pricesサブコレクションからactive: trueのデータを取得
+                    const pricesRef = collection(db, "products", doc.id, "prices");
+                    const pricesQuery = query(pricesRef, where("active", "==", true));
+                    const pricesSnapshot = await getDocs(pricesQuery);
+                    
+                    const prices = pricesSnapshot.docs.map(priceDoc => ({
+                        id: priceDoc.id,
+                        ...priceDoc.data()
+                    }));
+
                     const lowestPrice = await getLowestPrice(doc.id);
                     return {
                         id: doc.id,
                         ...productData,
-                        price: lowestPrice
+                        price: lowestPrice,
+                        prices: prices
                     } as Product;
                 }
                 return null;
@@ -178,4 +189,18 @@ export const getProductsByCategory = async (category: string) => {
         console.error("Error getting products by category:", error);
         throw error;
     }
+};
+
+export const getProductById = async (id: string): Promise<Product> => {
+    const productRef = doc(db, 'products', id);
+    const productSnap = await getDoc(productRef);
+
+    if (!productSnap.exists()) {
+        throw new Error('Product not found');
+    }
+
+    return {
+        id: productSnap.id,
+        ...productSnap.data()
+    } as Product;
 };

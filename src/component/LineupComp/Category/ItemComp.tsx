@@ -19,31 +19,17 @@ const ItemComp: React.FC<ItemCompProps> = ({ id, name, price, images }) => {
                     className="img1" 
                     src={images?.[0]} 
                     alt={name}
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                    }}
+                />
+                <img 
+                    className="img2" 
+                    src={images?.length === 1 ? images[0] : images?.[1]} 
+                    alt={name}
                 />
             </div>
-            <div className="ItemComp_text" style={{
-                padding: '1rem',
-                flex: '1',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-            }}>
-                <h3 className="title" style={{
-                    margin: '0 0 0.5rem 0',
-                    fontSize: '1rem',
-                    fontWeight: 'normal'
-                }}>{name}</h3>
+            <div className="ItemComp_text" >
+                <h3 className="title">{name}</h3>
                 <div className="price_box">
-                    <p className="price" style={{
-                        margin: '0',
-                        fontSize: '1.1rem',
-                        fontWeight: 'bold'
-                    }}>
+                    <p className="price">
                         <span className="symbol">￥</span>
                         <span className="price_number">{formattedPrice} ~</span>
                     </p>

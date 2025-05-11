@@ -3,6 +3,7 @@ import React from "react";
 import { AlertProvider } from "./context/AlertContext";
 import { ModalProvider } from "./context/ModalContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./utils/ScrollToTop";
 
 import Layout from "./Layout";
 import Home from "./pages/Home";
@@ -21,6 +22,7 @@ const App: React.FC = () => {
     <AlertProvider>
       <ModalProvider>
         <Router>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
