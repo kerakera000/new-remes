@@ -16,9 +16,11 @@ interface Product {
     specs?: {
         [key: string]: string;
     };
-    rentalOptions?: {
-        period: string;
-        price: number;
+    prices?: {
+        id: string;
+        unit_amount: number;
+        labels: string[];
+        [key: string]: unknown;
     }[];
 }
 
@@ -26,6 +28,7 @@ const Detail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { user } = useAuth();
     const { openModal } = useModal();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [selectedText, setSelectedText] = useState<string>("");
     const [product, setProduct] = useState<Product | null>(null);
@@ -38,6 +41,7 @@ const Detail: React.FC = () => {
             if (!id) return;
             try {
                 const productData = await getProductById(id);
+                console.log('DBから取得した商品データ:', productData);
                 setProduct(productData);
             } catch (error) {
                 console.error("Error fetching product:", error);
@@ -61,11 +65,33 @@ const Detail: React.FC = () => {
     };
 
     const handlePaymentClick = () => {
+        if (!product) return;
+
+        const selectedLabel = selectedText.split(' - ')[0];
+        const selectedPrice = product.prices?.find(p => p.labels.includes(selectedLabel));
+
+        if (!selectedPrice) {
+            alert('価格情報が見つかりません。もう一度お試しください。');
+            return;
+        }
+
+        const productData = {
+            id: product.id,
+            name: product.name || "",
+            price: {
+                id: selectedPrice.id,
+                labels: selectedLabel ? [selectedLabel] : [],
+                unit_amount: selectedPrice.unit_amount
+            },
+            images: product.images || []
+        };
+
         if (!user) {
             setCookie('nextpage', 'form', 1);
+            setCookie('productData', JSON.stringify(productData), 1);
             openModal('auth');
         } else {
-            openModal('form');
+            navigate('/form', { state: { productData } });
         }
     };
 
@@ -119,20 +145,23 @@ const Detail: React.FC = () => {
                         <div className={`custom_dropdown ${isOpen ? "active" : ""}`}>
                             <div className="dropdown" onClick={toggleDropdown}>
                                 <span className="selecttext">{selectedText || "選択して下さい"}</span>
-                                {isOpen && (
-                                    <ul className="dropdown_menu">
-                                        {product.rentalOptions?.map((option) => (
-                                            <li key={option.period} onClick={() => selectOption(option.period, `￥${option.price.toLocaleString()} (税込み)/月`)}>
-                                                <p className="text">{option.period}</p>
-                                                <p className="price">
-                                                    ￥{option.price.toLocaleString()}<span className="price__tax">(税込み)/月</span>
-                                                </p>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
                             </div>
                         </div>
+                        {isOpen && (
+                            <ul className="dropdown_menu">
+                                {product.prices?.map((priceData) => (
+                                    <li key={priceData.id} onClick={() => selectOption(
+                                        priceData.labels.length > 0 ? priceData.labels.join(', ') : '○○',
+                                        `￥${priceData.unit_amount.toLocaleString()}`
+                                    )}>
+                                        <p className="text">{priceData.labels.length > 0 ? priceData.labels.join(', ') : '○○'}</p>
+                                        <p className="price">
+                                            ￥{priceData.unit_amount.toLocaleString()}<span className="price__tax">(税込み)/月</span>
+                                        </p>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
                 </div>
 

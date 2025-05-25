@@ -14,6 +14,12 @@ interface Product {
     description?: string;
     price?: number | undefined;
     images?: string[];
+    prices?: {
+        id: string;
+        unit_amount: number;
+        labels: string[];
+        [key: string]: unknown;
+    }[];
     [key: string]: unknown;
 }
 

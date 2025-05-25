@@ -1,41 +1,36 @@
-// FormComp.tsx
-
-import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import BreadcrumbComponent from "./BreadcrumbComponents/breadcrumb";
-import { UpdateShippingInformation } from "../../lib/firebaseService";
-import { useModal } from "../../context/ModalContext";
-import { validateFormData } from "../../validators/FormCompValidation";
+import { UpdateShippingInformation } from "../lib/firebaseService";
+import { validateFormData } from "../validators/FormCompValidation";
+import BreadcrumbComponent from "../component/ModalComponents/BreadcrumbComponents/breadcrumb";
 
-import arrow1 from "../../assets/modalcomp/arrow1.svg";
-import arrow2 from "../../assets/modalcomp/arrow2.svg";
-import item from "../../assets/items/detailproduct/item.svg";
+import arrow1 from "../assets/modalcomp/arrow1.svg";
+import arrow2 from "../assets/modalcomp/arrow2.svg";
+import item from "../assets/items/detailproduct/item.svg";
 
 interface ProductData {
+    id: string;
     name: string;
     price: {
+        id: string;
         labels: string[];
         unit_amount: number;
     };
     images: string[];
 }
 
-interface FormCompProps {
-    setComp: Dispatch<SetStateAction<string>>;
-    comp: string;
-    productData?: ProductData;  // 商品データを追加
-}
-
-// 追加: インターフェースの定義
 interface FormErrors {
     [key: string]: string;
 }
 
-const FormComp: React.FC<FormCompProps> = ({ productData }) => {
-    const { openModal, closeModal } = useModal();
+const Form: React.FC = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const productData = location.state?.productData as ProductData;
+
     const [formData, setFormData] = useState({
-        // 配送先情報
         lastName: "",
         firstName: "",
         lastNameKana: "",
@@ -49,7 +44,6 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
         emailConfirm: "",
     });
 
-    // any を FormErrors に置き換え
     const [errors, setErrors] = useState<FormErrors>({});
 
     useEffect(() => {
@@ -75,7 +69,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                         building: data.BuildingNameRoomNumber || "",
                         phoneNumber: data.phone || "",
                         email: data.email || "",
-                        emailConfirm: data.email || "", // 確認用のメールアドレスも同じ値をセット
+                        emailConfirm: data.email || "",
                     });
                 } else {
                     console.error("ユーザーデータが存在しません。");
@@ -86,24 +80,20 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
         fetchUserData();
     }, []);
 
-    useEffect(() => {
-        console.log('受け取った商品データ:', productData);
-    }, [productData]);
-
-    // フォームのバリデーション
     const validateForm = () => {
         const newErrors = validateFormData(formData);
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
-    // フォームの送信処理
     const submitForm = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validateForm()) {
             return;
         }
+
+        console.log('Form.tsx - 送信時の商品データ:', productData);
 
         const auth = getAuth();
         const user = auth.currentUser;
@@ -123,22 +113,21 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
 
             try {
                 await UpdateShippingInformation(user.uid, customerData);
-                openModal('checkform');
+                navigate('/check', { state: { productData } });
             } catch (error) {
                 console.error("データの保存中にエラーが発生しました:", error);
                 alert("データの保存中にエラーが発生しました");
             }
         } else {
             alert("ユーザーがログインしていません");
+            navigate('/login');
         }
     };
 
-    // 入力ハンドラ
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        // 数値入力が必要なフィールドで文字が入力された場合の処理
         if (
-            (name === "zipCode" || name === "phoneNumber" || name === "cardNumber" || name === "securityCode") &&
+            (name === "zipCode" || name === "phoneNumber") &&
             isNaN(Number(value))
         ) {
             setErrors((prevErrors: FormErrors) => ({ ...prevErrors, [name]: "数値を入力してください" }));
@@ -149,22 +138,16 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-
     const handleBackButtonClick = () => {
-        closeModal();
+        navigate(-1);
     };
 
     return (
-        <div className="modalform">
-            {/* <button className="modalform__close" onClick={closeModal}>
-                <img src={Vector} alt="Close" />
-            </button> */}
-            {/* パンくずリスト */}
-            <BreadcrumbComponent currentStep={1} />
+        <div className="page-form">
 
+            <BreadcrumbComponent currentStep={1} />
             <div className="flexbox">
                 <div className="formbox">
-                    {/* 配送先情報 */}
                     <div className="shipping_info">
                         <h2 className="shipping_title">配送先情報入力</h2>
                         <form className="shipping_form" onSubmit={submitForm}>
@@ -268,7 +251,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                                 <div className="inputbox">
                                     <p className="title">
                                         市区町村
-                                        <span className="error">{errors.city}</span>
+                                        {errors.city && <span className="error">{errors.city}</span>}
                                     </p>
                                     <span className="help"></span>
                                     <input
@@ -285,7 +268,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                                 <div className="inputbox">
                                     <p className="title">
                                         建物名、部屋番号など
-                                        <span className="error">{errors.building}</span>
+                                        {errors.building && <span className="error">{errors.building}</span>}
                                     </p>
                                     <span className="help"></span>
                                     <input
@@ -302,7 +285,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                                 <div className="inputbox">
                                     <p className="title">
                                         電話番号
-                                        <span className="error">{errors.phoneNumber}</span>
+                                        {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
                                     </p>
                                     <span className="help">ハイフンは入力しないでください</span>
                                     <input
@@ -319,7 +302,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                                 <div className="inputbox">
                                     <p className="title">
                                         メールアドレス
-                                        <span className="error">{errors.email}</span>
+                                        {errors.email && <span className="error">{errors.email}</span>}
                                     </p>
                                     <span className="help"></span>
                                     <input
@@ -336,7 +319,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                                 <div className="inputbox">
                                     <p className="title">
                                         メールアドレス(確認用)
-                                        <span className="error">{errors.emailConfirm}</span>
+                                        {errors.emailConfirm && <span className="error">{errors.emailConfirm}</span>}
                                     </p>
                                     <span className="help"></span>
                                     <input
@@ -352,7 +335,6 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                     </div>
                 </div>
 
-                {/* FAQセクション */}
                 <div className="accordion-modal">
                     <div className="order_item">
                         <h2 className="order_item__title">ご注文商品</h2>
@@ -404,7 +386,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
             <div className="submitbuttons">
                 <button
                     className="btn1"
-                    onClick={handleBackButtonClick} // 戻るボタンでアラートを表示
+                    onClick={handleBackButtonClick}
                 >
                     <img className="btn1__img" src={arrow2} alt="戻る" />
                     <span className="btn1__text">戻る</span>
@@ -415,8 +397,7 @@ const FormComp: React.FC<FormCompProps> = ({ productData }) => {
                 </button>
             </div>
         </div>
-
     );
 };
 
-export default FormComp;
+export default Form;

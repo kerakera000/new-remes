@@ -166,10 +166,29 @@ export const getProductsByCategory = async (category: string) => {
                     const pricesQuery = query(pricesRef, where("active", "==", true));
                     const pricesSnapshot = await getDocs(pricesQuery);
                     
-                    const prices = pricesSnapshot.docs.map(priceDoc => ({
-                        id: priceDoc.id,
-                        ...priceDoc.data()
-                    }));
+                    const prices = pricesSnapshot.docs.map(priceDoc => {
+                        const priceData = priceDoc.data();
+                        let labels: string[] = [];
+                        
+                        // metadataの処理を修正
+                        if (priceData.metadata) {
+                            if (Array.isArray(priceData.metadata)) {
+                                labels = priceData.metadata.map((item: { label: string }) => item.label);
+                            } else if (typeof priceData.metadata === 'object') {
+                                // オブジェクトの場合、labelプロパティを探す
+                                const label = priceData.metadata.label;
+                                if (label) {
+                                    labels = [label];
+                                }
+                            }
+                        }
+                        
+                        return {
+                            id: priceDoc.id,
+                            ...priceData,
+                            labels: labels
+                        };
+                    });
 
                     const lowestPrice = await getLowestPrice(doc.id);
                     return {
@@ -199,8 +218,33 @@ export const getProductById = async (id: string): Promise<Product> => {
         throw new Error('Product not found');
     }
 
+    // pricesサブコレクションも取得
+    const pricesRef = collection(db, 'products', id, 'prices');
+    const pricesSnapshot = await getDocs(pricesRef);
+
+    const prices = pricesSnapshot.docs.map(priceDoc => {
+        const priceData = priceDoc.data();
+        let labels: string[] = [];
+        if (priceData.metadata) {
+            if (Array.isArray(priceData.metadata)) {
+                labels = priceData.metadata.map((item: { label: string }) => item.label);
+            } else if (typeof priceData.metadata === 'object') {
+                const label = priceData.metadata.label;
+                if (label) {
+                    labels = [label];
+                }
+            }
+        }
+        return {
+            id: priceDoc.id,
+            ...priceData,
+            labels: labels
+        };
+    });
+
     return {
         id: productSnap.id,
-        ...productSnap.data()
+        ...productSnap.data(),
+        prices: prices
     } as Product;
 };

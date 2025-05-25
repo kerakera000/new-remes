@@ -5,7 +5,6 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import AuthComp from '../component/ModalComponents/AuthpageComp';
 import CheckformComp from '../component/ModalComponents/CheckformComp';
 import CompleteComp from '../component/ModalComponents/CompleteComp';
-import DetailComp from '../component/ModalComponents/DetailComp';
 import FormComp from '../component/ModalComponents/FormComp';
 import PaymentComp from '../component/ModalComponents/PaymentComp';
 
@@ -17,7 +16,7 @@ type ModalType = 'Mreport' | 'MselectDayMentee' | 'Mcancel' | 'MselectDayMentor'
 // モーダルの型
 interface ModalContextProps {
     isOpen: boolean;
-    openModal: (type: ModalType) => void;
+    openModal: (type: ModalType, data?: any) => void;
     closeModal: () => void;
 }
 
@@ -31,9 +30,11 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     // AuthComp, DetailComp, FormComp, CheckformCompコンポーネントで使用されています
     // モーダルの状態遷移を管理するために必要です
     const [comp, setComp] = useState('default');  // モーダル内の状態管理用
+    const [modalData, setModalData] = useState<any>(null);
 
-    const openModal = (type: ModalType) => {
+    const openModal = (type: ModalType, data?: any) => {
         setModalType(type);
+        setModalData(data);
         setIsOpen(true);
     };
 
@@ -51,10 +52,8 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
                 return <CheckformComp setComp={setComp} comp={comp} />;
             case "complete":
                 return <CompleteComp closeModal={closeModal} />;
-            case "detail":
-                return <DetailComp closeModal={closeModal}/>;
             case "form":
-                return <FormComp setComp={setComp} comp={comp} />;
+                return <FormComp setComp={setComp} comp={comp} productData={modalData?.productData} />;
             case "payment":
                 return <PaymentComp closeModal={closeModal} />;
             default:

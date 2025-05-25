@@ -20,6 +20,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentStep }) => {
                 <img className='normal' src={Vector} alt="breadcrumb arrow" />
             </li>
             <li className={`list ${currentStep >= 3 ? 'active' : ''}`}>
+                <span className='text'>決済</span>
+            </li>
+            <li className={`list ${currentStep >= 4 ? 'active' : ''}`}>
                 <span className='text'>ご注文完了</span>
             </li>
         </ul>
