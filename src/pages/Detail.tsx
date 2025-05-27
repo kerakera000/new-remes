@@ -104,76 +104,74 @@ const Detail: React.FC = () => {
     }
 
     return (
-        <div className="main_content">
-            <div className="modaldetail page-detail">
-                <div className="flexbox">
-                    <div className="modaldetail__imgbox">
-                        <img className="mainimg" src={product.images?.[0]} alt={product.name} />
-                        <div className="subimg_box">
-                            {product.images?.slice(1).map((image, index) => (
-                                <img 
-                                    key={index}
-                                    className="subimg_box__img" 
-                                    src={image} 
-                                    alt={`${product.name} - ${index + 2}`} 
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="modaldetail__textbox">
-                        <h2 className="title">{product.name}</h2>
-                        <div className="tagbox">
-                            <span className="tag">レンタル可能数5点</span>
-                            <span className="tag">在庫残り3点</span>
-                        </div>
-                        <p className="text">{product.description}</p>
-                        
-                        {product.specs && (
-                            <>
-                                <p className="spec__title">スペック</p>
-                                <div className="spec__tagbox">
-                                    {Object.entries(product.specs).map(([key, value]) => (
-                                        <p key={key} className="tag">{key} : {value}</p>
-                                    ))}
-                                </div>
-                            </>
-                        )}
-
-                        <h3 className="rental">レンタル期間</h3>
-
-                        <div className={`custom_dropdown ${isOpen ? "active" : ""}`}>
-                            <div className="dropdown" onClick={toggleDropdown}>
-                                <span className="selecttext">{selectedText || "選択して下さい"}</span>
-                            </div>
-                        </div>
-                        {isOpen && (
-                            <ul className="dropdown_menu">
-                                {product.prices?.map((priceData) => (
-                                    <li key={priceData.id} onClick={() => selectOption(
-                                        priceData.labels.length > 0 ? priceData.labels.join(', ') : '○○',
-                                        `￥${priceData.unit_amount.toLocaleString()}`
-                                    )}>
-                                        <p className="text">{priceData.labels.length > 0 ? priceData.labels.join(', ') : '○○'}</p>
-                                        <p className="price">
-                                            ￥{priceData.unit_amount.toLocaleString()}<span className="price__tax">(税込み)/月</span>
-                                        </p>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
+        <div className="page-detail">
+            <div className="flexbox">
+                <div className="page-detail__imgbox">
+                    <img className="mainimg" src={product.images?.[0]} alt={product.name} />
+                    <div className="subimg_box">
+                        {product.images?.slice(1).map((image, index) => (
+                            <img 
+                                key={index}
+                                className="subimg_box__img" 
+                                src={image} 
+                                alt={`${product.name} - ${index + 2}`} 
+                            />
+                        ))}
                     </div>
                 </div>
 
-                <button
-                    className={`modaldetail__go_payment ${isSelected ? "active" : ""}`}
-                    disabled={!isSelected}
-                    onClick={handlePaymentClick}
-                >
-                    お支払い情報を入力する
-                    <img className="mainimg" src={arrowImg} alt="Arrow" />
-                </button>
+                <div className="page-detail__textbox">
+                    <h2 className="title">{product.name}</h2>
+                    <div className="tagbox">
+                        <span className="tag">レンタル可能数5点</span>
+                        <span className="tag">在庫残り3点</span>
+                    </div>
+                    <p className="text">{product.description}</p>
+                    
+                    {product.specs && (
+                        <>
+                            <p className="spec__title">スペック</p>
+                            <div className="spec__tagbox">
+                                {Object.entries(product.specs).map(([key, value]) => (
+                                    <p key={key} className="tag">{key} : {value}</p>
+                                ))}
+                            </div>
+                        </>
+                    )}
+
+                    <h3 className="rental">レンタル期間</h3>
+
+                    <div className={`custom_dropdown ${isOpen ? "active" : ""}`}>
+                        <div className="dropdown" onClick={toggleDropdown}>
+                            <span className="selecttext">{selectedText || "選択して下さい"}</span>
+                        </div>
+                    </div>
+                    {isOpen && (
+                        <ul className="dropdown_menu">
+                            {product.prices?.map((priceData) => (
+                                <li key={priceData.id} onClick={() => selectOption(
+                                    priceData.labels.length > 0 ? priceData.labels.join(', ') : '○○',
+                                    `￥${priceData.unit_amount.toLocaleString()}`
+                                )}>
+                                    <p className="text">{priceData.labels.length > 0 ? priceData.labels.join(', ') : '○○'}</p>
+                                    <p className="price">
+                                        ￥{priceData.unit_amount.toLocaleString()}<span className="price__tax">(税込み)/月</span>
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
+
+            <button
+                className={`page-detail__go_payment ${isSelected ? "active" : ""}`}
+                disabled={!isSelected}
+                onClick={handlePaymentClick}
+            >
+                お支払い情報を入力する
+                <img className="mainimg" src={arrowImg} alt="Arrow" />
+            </button>
         </div>
     );
 };

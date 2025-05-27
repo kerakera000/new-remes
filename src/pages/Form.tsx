@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { UpdateShippingInformation } from "../lib/firebaseService";
@@ -78,6 +78,8 @@ const Form: React.FC = () => {
         };
 
         fetchUserData();
+
+        console.log('Form.tsx - 受け取った商品データ:', productData);
     }, []);
 
     const validateForm = () => {
@@ -136,10 +138,6 @@ const Form: React.FC = () => {
         }
 
         setFormData((prevData) => ({ ...prevData, [name]: value }));
-    };
-
-    const handleBackButtonClick = () => {
-        navigate(-1);
     };
 
     return (
@@ -384,13 +382,14 @@ const Form: React.FC = () => {
             </div>
 
             <div className="submitbuttons">
-                <button
+                <Link
+                    to={`/detail/${productData?.id}`}
+                    state={{ productData }}
                     className="btn1"
-                    onClick={handleBackButtonClick}
                 >
                     <img className="btn1__img" src={arrow2} alt="戻る" />
                     <span className="btn1__text">戻る</span>
-                </button>
+                </Link>
                 <button className="btn2" onClick={submitForm}>
                     <span className="btn2__text">確認する</span>
                     <img className="btn2__img" src={arrow1} alt="注文する" />

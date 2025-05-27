@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { createCheckoutSession } from "../lib/stripeService";
@@ -36,12 +36,48 @@ interface ProductData {
 const Check: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const productData = location.state?.productData as ProductData;
+    const [productData, setProductData] = useState<ProductData | null>(null);
     const [userData, setUserData] = useState<UserData>({});
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        console.log('Check.tsx - 受け取った商品データ:', productData);
+        const getCookie = (name: string) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop()?.split(';').shift();
+            return null;
+        };
+
+        const deleteCookie = (name: string) => {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        };
+
+        const initializeProductData = () => {
+            // まずlocation.stateから確認
+            const stateData = location.state?.productData as ProductData;
+            if (stateData) {
+                setProductData(stateData);
+                return;
+            }
+
+            // Cookieから確認
+            const cookieData = getCookie('productData');
+            if (cookieData) {
+                try {
+                    const parsedData = JSON.parse(cookieData) as ProductData;
+                    setProductData(parsedData);
+                    deleteCookie('productData');
+                    return;
+                } catch (error) {
+                    console.error('Cookieデータの解析に失敗しました:', error);
+                }
+            }
+
+            // データがない場合はホームページにリダイレクト
+            navigate('/');
+        };
+
+        initializeProductData();
 
         const fetchUserData = async () => {
             const auth = getAuth();
@@ -62,13 +98,29 @@ const Check: React.FC = () => {
         };
 
         fetchUserData();
-    }, []);
-
-    const handleBack = () => {
-        window.history.back();
-    };
+    }, [location.state, navigate]);
 
     const handlePayment = async () => {
+        if (!productData) {
+            alert('商品データが見つかりません');
+            navigate('/');
+            return;
+        }
+
+        const deleteCookie = (name: string) => {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        };
+
+        const setCookie = (name: string, value: string, days: number) => {
+            // 既存のCookieを削除
+            deleteCookie(name);
+            // 新しいCookieを設定
+            const expires = new Date();
+            expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        };
+
+        setCookie('productData', JSON.stringify(productData), 0.5);
         try {
             setIsLoading(true);
             const auth = getAuth();
@@ -104,6 +156,13 @@ const Check: React.FC = () => {
         }
     };
 
+    const handleBack = () => {
+        const deleteCookie = (name: string) => {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        };
+        deleteCookie('productData');
+    };
+
     return (
         <div className="page-check">
             {/* パンくずリスト */}
@@ -118,7 +177,7 @@ const Check: React.FC = () => {
                         <p className="text">{userData.prefectures}{userData.municipalities}{userData.BuildingNameRoomNumber}</p>
                         <p className="text">{userData.phone}</p>
                         <p className="text">{userData.email}</p>
-                        <button className="button" onClick={handleBack}>変更する</button>
+                        <Link to="/form" state={{ productData }} className="button">変更する</Link>
                     </div>
 
                     <div className="formbox__texttype">
@@ -158,10 +217,15 @@ const Check: React.FC = () => {
 
             <div className="submitbuttons">
                 <div className="submitbuttons__button">
-                    <button className="btn1" onClick={handleBack}>
+                    <Link 
+                        to="/form" 
+                        state={{ productData }}
+                        className="btn1"
+                        onClick={handleBack}
+                    >
                         <img className="btn1__img" src={arrow2} alt="戻る" />
                         <span className="btn1__text">戻る</span>
-                    </button>
+                    </Link>
                     <button 
                         className="btn2" 
                         onClick={handlePayment}

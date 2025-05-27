@@ -256,13 +256,15 @@
             justify-content: center;
             margin-top: 100px;
             width: 100%;
-            @media screen and (max-width: 768px) {
-                flex-direction: column;
+            gap: 16px;
+            padding: 0 32px;
+            @media screen and (max-width: 1000px) {
+                flex-wrap: wrap;
                 align-items: center;
-                gap: 85px;
+                gap: 64px 16px;
+                padding: 0 10%;
             }
-
-            @media screen and (max-width: 425px) {
+            @media screen and (max-width: 600px) {
                 margin-top: 60px;
             }
 
@@ -272,7 +274,10 @@
                 align-items: center;
                 justify-content: flex-start;
                 flex-direction: column;
-                @media screen and (max-width: 768px) {
+                @media screen and (max-width: 1000px) {
+                    @include gaps(16px, 2);
+                }
+                @media screen and (max-width: 600px) {
                     width: 100%;
                 }
 

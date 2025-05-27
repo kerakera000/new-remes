@@ -248,3 +248,47 @@ export const getProductById = async (id: string): Promise<Product> => {
         prices: prices
     } as Product;
 };
+
+// サブスクリプションデータの型定義
+export interface SubscriptionData {
+    items: Array<{
+        price: {
+            product: {
+                name: string;
+                images: string[];
+            };
+            metadata: {
+                label: string;
+            };
+            unit_amount: number;
+        };
+        current_period_start: number;
+    }>;
+}
+
+// ユーザーのサブスクリプション情報を取得する関数
+export const getUserSubscriptions = async (userId: string): Promise<SubscriptionData> => {
+    try {
+        const subscriptionsRef = collection(db, "customers", userId, "subscriptions");
+        const querySnapshot = await getDocs(subscriptionsRef);
+        
+        const subscriptions: SubscriptionData = {
+            items: []
+        };
+        
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            console.log("サブスクリプションID:", doc.id);
+            console.log("サブスクリプションデータ:", data);
+            
+            if (data.items && Array.isArray(data.items)) {
+                subscriptions.items = data.items;
+            }
+        });
+        
+        return subscriptions;
+    } catch (error) {
+        console.error("サブスクリプション情報の取得中にエラーが発生しました:", error);
+        throw error;
+    }
+};

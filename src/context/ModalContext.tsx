@@ -3,10 +3,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 import AuthComp from '../component/ModalComponents/AuthpageComp';
-import CheckformComp from '../component/ModalComponents/CheckformComp';
-import CompleteComp from '../component/ModalComponents/CompleteComp';
-import FormComp from '../component/ModalComponents/FormComp';
-import PaymentComp from '../component/ModalComponents/PaymentComp';
 
 // モーダルの型を拡張
 type ModalType = 'Mreport' | 'MselectDayMentee' | 'Mcancel' | 'MselectDayMentor' |
@@ -48,14 +44,6 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         switch (modalType) {
             case "auth":
                 return <AuthComp closeModal={closeModal} setComp={setComp} comp={comp} />;
-            case "checkform":
-                return <CheckformComp setComp={setComp} comp={comp} />;
-            case "complete":
-                return <CompleteComp closeModal={closeModal} />;
-            case "form":
-                return <FormComp setComp={setComp} comp={comp} productData={modalData?.productData} />;
-            case "payment":
-                return <PaymentComp closeModal={closeModal} />;
             default:
                 return null;
         }

@@ -135,28 +135,123 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        .submit {
-            border-radius: 21.5px;
-            background: #C33131;
-            width: 201px;
-            height: 43px;
-            flex-shrink: 0;
+        .submit{
+            background-color: #C33131;
+            border-radius: 20px;
+            padding: 0 20px 0 26px;
+            height: 40px;
+            color: #FFF;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #FFF;
-            font-family: "Noto Sans JP";
+            gap: 8.5px;
+            font-family: "Noto Sans JP", sans-serif;
+            font-weight: 500;
             font-size: 16px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-            position: relative;
-            padding-bottom: 3px;
-            .img {
+            text-decoration: none;
+            transition: 0.3s;
+            border: 2px solid #C33131;
+
+            @media screen and (max-width: 1024px) {
+                width: 100%;
+                background-color: #FFF;
+                color: #C33131;
+                border: 1px solid #C33131;
+                padding: 0;
+                position: relative;
+            }
+
+            .white {
+                width: 12px;
+                height: 12px;
+
+                @media screen and (max-width: 1024px) {
+                    opacity: 0;
+                    pointer-events: none;
+                    top: 50%;
+                    right: 0%;
+                    transform: translate(-50%, -50%);
+                    position: absolute;
+                }
+            }
+
+            .red {
+                width: 12px;
+                height: 12px;
+                opacity: 0;
                 position: absolute;
-                top: 50%;
-                right: 5%;
-                transform: translate(-50%,-50%);
+                pointer-events: none;
+
+                @media screen and (max-width: 1024px) {
+                    opacity: 1;
+                    pointer-events: all;
+                    top: 50%;
+                    right: 0%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            &:hover {
+                background-color: #FFF;
+                color: #C33131;
+                transition: 0.3s;
+                border: 2px solid #C33131;
+
+                .white {
+                    width: 12px;
+                    height: 12px;
+                    opacity: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+
+                .red {
+                    width: 12px;
+                    height: 12px;
+                    opacity: 1;
+                    position: static;
+                    pointer-events: fill;
+                }
+
+                @media (max-width: 425px) {
+                    /* 425px以下の場合、hoverのスタイルを無効化 */
+                    width: 100%;
+                    background-color: #FFF;
+                    color: #C33131;
+                    border: 1px solid #C33131;
+                    padding: 0;
+                    position: relative;
+
+                    .white {
+                        width: 12px;
+                        height: 12px;
+
+                        @media screen and (max-width: 1024px) {
+                            opacity: 0;
+                            pointer-events: none;
+                            top: 50%;
+                            right: 0%;
+                            transform: translate(-50%, -50%);
+                            position: absolute;
+                        }
+                    }
+
+                    .red {
+                        width: 12px;
+                        height: 12px;
+                        opacity: 0;
+                        position: absolute;
+                        pointer-events: none;
+
+                        @media screen and (max-width: 1024px) {
+                            opacity: 1;
+                            pointer-events: all;
+                            top: 50%;
+                            right: 0%;
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+                }
             }
         }
     }

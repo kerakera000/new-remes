@@ -35,10 +35,11 @@
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        @media screen and (max-width: 425px) {
-            font-size: 48px;
-            font-weight: 700;
-            line-height: 50px;
+        @media screen and (max-width: 600px) {
+            line-height: 70px;
+            font-size: 75px;
+            width: 100%;
+            letter-spacing: 2px;
         }
     }
 
@@ -86,6 +87,7 @@
 
                 @media screen and (max-width: 425px) {
                     flex-direction: column;
+                    padding: 16px 16px 20px;
                 }
 
                 .imgbox {

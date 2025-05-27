@@ -377,7 +377,10 @@
             background: #FFF;
             position: relative;
             max-width: 181px;
-
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
             &__img {
                 position: absolute;
                 transform: translate(-50%, -50%);

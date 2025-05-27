@@ -6,6 +6,8 @@ import { useAlert } from "../../context/AlertContext";
 
 import vector from "../../assets/account/Vector.svg";
 import signout from "../../assets/account/signout.svg";
+import Vectorwhite from "../../assets/haeder/Vectorwhite.svg";
+import Vectorred from "../../assets/haeder/Vectorred.svg";
 
 const AccountComp: React.FC = () => {
     const [hasPassword, setHasPassword] = useState(false); // パスワードの有無を管理
@@ -241,8 +243,9 @@ const AccountComp: React.FC = () => {
 
                 <div className="save">
                     <button className="submit" onClick={handleSave}>
-                        変更を保存する
-                        <img className="img" src={vector} alt="" />
+                        商品一覧を見る
+                        <img className="white" src={Vectorwhite} alt=">" />
+                        <img className="red" src={Vectorred} alt=">" />
                     </button>
                 </div>
             </div>

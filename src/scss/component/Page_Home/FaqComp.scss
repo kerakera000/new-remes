@@ -37,8 +37,8 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 50px;
-        @media screen and (max-width: 425px) {
-            font-size: 80px;
+        @media screen and (max-width: 600px) {
+            font-size: 75px;
             margin-bottom: 30px;
         }
     }
